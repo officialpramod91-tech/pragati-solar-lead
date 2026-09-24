@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
     <title>Pragati Solar Hub - AI Solar Consultant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background: #f0f2f5; min-height: 100vh; }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            height: 100dvh;
+            overflow: hidden;
+            background: #f0f2f5;
+        }
 
         .chat-launcher {
             position: fixed;
@@ -25,85 +32,60 @@
             box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4);
             cursor: pointer;
             z-index: 1000;
-            transition: transform 0.2s;
         }
-        .chat-launcher:hover { transform: scale(1.06); }
 
         .app-container {
             position: fixed;
-            bottom: 92px;
-            right: 24px;
-            width: 410px;
-            max-width: calc(100vw - 32px);
-            height: 650px;
-            max-height: calc(100vh - 110px);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            height: 100%;
+            height: 100dvh;
             background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 18px 50px rgba(0, 30, 70, 0.22);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             z-index: 999;
         }
 
-        .app-container.hidden { display: none; }
-
-        /* Crystal Clear Solar Panel Header */
+        /* Responsive Solar Panel Image Header */
         .app-header {
             position: relative;
-            background-color: #0b254a; /* Fallback color */
-            background-image: linear-gradient(180deg, rgba(2, 30, 60, 0.35) 0%, rgba(2, 20, 45, 0.65) 100%), url('header-bg.jpg');
+            background-color: #0b254a;
+            background-image: linear-gradient(180deg, rgba(2, 30, 60, 0.35) 0%, rgba(2, 20, 45, 0.70) 100%), url('header-bg.jpg');
             background-size: cover;
             background-position: center bottom;
             background-repeat: no-repeat;
             color: white;
-            padding: 14px 16px 26px 16px;
+            padding: 12px 14px 22px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        /* Sleek Right-Aligned Branding Strip */
-        .header-brand-strip {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(90deg, #15803d, #16a34a);
-            padding: 3px 12px;
-            border-top-left-radius: 10px;
-            font-size: 0.60rem;
-            color: #ffffff;
-            font-weight: 700;
-            letter-spacing: 0.4px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            box-shadow: -2px -2px 8px rgba(0, 0, 0, 0.3);
-        }
-        .header-brand-strip i {
-            color: #facc15;
-            font-size: 0.65rem;
+            flex-shrink: 0;
+            border-bottom: 2px solid #22c55e;
+            z-index: 10;
         }
 
         .header-left { 
             display: flex; 
             align-items: center; 
-            gap: 12px; 
+            gap: 10px; 
             z-index: 2;
         }
         
         .avatar-box {
             position: relative;
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 2px solid #22c55e;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             flex-shrink: 0;
             overflow: hidden;
         }
@@ -114,8 +96,8 @@
         }
         .online-dot {
             position: absolute;
-            bottom: 2px;
-            right: 2px;
+            bottom: 1px;
+            right: 1px;
             width: 10px;
             height: 10px;
             border-radius: 50%;
@@ -128,15 +110,14 @@
             font-weight: 800; 
             line-height: 1.2; 
             color: #ffffff;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7); 
-            letter-spacing: -0.2px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.75);
         }
         .header-meta .status-sub { 
             font-size: 0.72rem; 
             color: #bae6fd; 
             display: flex; 
             align-items: center; 
-            gap: 5px; 
+            gap: 4px; 
             margin-top: 2px;
             font-weight: 600;
             text-shadow: 0 1px 4px rgba(0,0,0,0.8);
@@ -151,45 +132,57 @@
         .header-right { 
             display: flex; 
             align-items: center; 
-            margin-bottom: 6px; 
+            gap: 12px; 
             z-index: 2;
         }
-        .close-btn {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+
+        /* Clean Bottom-Right Branding Strip */
+        .header-brand-strip {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, #15803d, #16a34a);
+            padding: 2px 10px;
+            border-top-left-radius: 8px;
+            font-size: 0.58rem;
             color: #ffffff;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
+            font-weight: 700;
+            letter-spacing: 0.3px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            cursor: pointer;
-            transition: all 0.2s;
+            gap: 4px;
+            box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.25);
+            z-index: 5;
         }
-        .close-btn:hover { background: rgba(255, 255, 255, 0.4); transform: scale(1.05); }
+        .header-brand-strip i {
+            color: #facc15;
+            font-size: 0.60rem;
+        }
 
-        /* Chat Body */
         .chat-body {
             flex: 1;
             background: #f8fafc;
             overflow-y: auto;
-            padding: 16px 14px;
+            -webkit-overflow-scrolling: touch;
+            padding: 14px 12px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
+            scroll-behavior: smooth;
         }
 
-        /* Message Layouts */
         .msg-row {
             display: flex;
+            align-items: flex-start;
             gap: 8px;
-            max-width: 88%;
+            max-width: 82%;
+            width: fit-content;
         }
         .msg-row.bot { align-self: flex-start; }
-        .msg-row.user { align-self: flex-end; flex-direction: row-reverse; }
+        .msg-row.user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+        }
 
         .bubble-avatar {
             width: 32px;
@@ -210,32 +203,30 @@
             object-fit: contain;
         }
 
-        /* Chat Bubbles */
         .bubble {
-            padding: 10px 14px;
+            padding: 9px 13px;
             font-size: 0.88rem;
             line-height: 1.45;
             white-space: pre-wrap;
             word-break: break-word;
+            border-radius: 16px;
+            width: fit-content;
+            max-width: 100%;
+            text-align: left;
         }
 
         .bot .bubble {
             background: #f0fdf4;
             color: #0f172a;
-            border-radius: 18px;
             border-top-left-radius: 4px;
             border: 1px solid #dcfce7;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
         }
 
         .user .bubble {
-            background: linear-gradient(135deg, #0284c7, #0369a1);
+            background: #0e3860;
             color: #ffffff;
-            border-radius: 18px;
             border-top-right-radius: 4px;
-            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.25);
-            display: inline-block;
-            width: auto;
+            box-shadow: 0 2px 6px rgba(14, 56, 96, 0.18);
         }
 
         .bubble-time {
@@ -245,12 +236,11 @@
             align-items: center;
             justify-content: flex-end;
             gap: 4px;
-            opacity: 0.8;
+            opacity: 0.75;
         }
-        .user .bubble-time { color: #e0f2fe; }
+        .user .bubble-time { color: #dbeafe; }
         .bot .bubble-time { color: #64748b; }
 
-        /* Quick Action Chips */
         .chips-list {
             display: flex;
             gap: 8px;
@@ -269,7 +259,6 @@
             align-items: center;
             gap: 6px;
             cursor: pointer;
-            transition: all 0.15s ease;
         }
         .chip-card.highlight {
             background: #f0fdf4;
@@ -278,56 +267,40 @@
         }
         .chip-card.blue-outline {
             border-color: #bae6fd;
-            color: #0369a1;
-        }
-        .chip-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            color: #0e3860;
         }
 
-        /* Footer Input Bar */
         .footer-action-bar {
-            padding: 10px 14px;
+            padding: 8px 10px 12px 10px;
             background: #ffffff;
             border-top: 1px solid #f1f5f9;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-        .btn-round-plus {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #f1f5f9;
-            color: #0369a1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #e2e8f0;
-            cursor: pointer;
-            font-size: 15px;
+            gap: 8px;
             flex-shrink: 0;
+            width: 100%;
         }
         .input-pill {
             flex: 1;
             display: flex;
             align-items: center;
-            background: #f8fafc;
-            border: 1.5px solid #e2e8f0;
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
             border-radius: 24px;
-            padding: 0 16px;
+            padding: 0 14px;
             height: 42px;
+            min-width: 0;
         }
         .input-pill input {
-            flex: 1;
+            width: 100%;
             border: none;
             outline: none;
-            font-size: 0.88rem;
+            font-size: 0.92rem;
             color: #1e293b;
             background: transparent;
         }
 
-        .btn-send-green {
+        .btn-send-theme {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -339,12 +312,9 @@
             border: none;
             font-size: 16px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(22, 163, 74, 0.35);
-            transition: transform 0.15s;
+            box-shadow: 0 3px 8px rgba(22, 163, 74, 0.35);
             flex-shrink: 0;
         }
-        .btn-send-green:hover { transform: scale(1.05); }
-        .btn-send-green:disabled { background: #e2e8f0; color: #94a3b8; cursor: not-allowed; }
 
         .typing-dots { display: flex; gap: 4px; padding: 10px 14px; }
         .typing-dots span { width: 5px; height: 5px; background: #94a3b8; border-radius: 50%; animation: blink 1.4s infinite ease-in-out both; }
@@ -352,18 +322,29 @@
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes blink { 0%, 80%, 100% { transform: scale(0); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
 
-        @media (max-width: 480px) {
-            .app-container { right: 0; bottom: 0; width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; }
-            .chat-launcher { bottom: 16px; right: 16px; }
+        @media (max-width: 768px) {
+            .chat-launcher { display: none !important; }
+        }
+
+        @media (min-width: 769px) {
+            .app-container {
+                top: auto;
+                left: auto;
+                bottom: 92px;
+                right: 24px;
+                width: 410px;
+                height: 650px;
+                border-radius: 24px;
+                box-shadow: 0 18px 50px rgba(0, 30, 70, 0.2);
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="chat-launcher" onclick="toggleChat()"><i class="fa-solid fa-solar-panel"></i></div>
+<div class="chat-launcher"><i class="fa-solid fa-solar-panel"></i></div>
 
 <div class="app-container" id="appContainer">
-    <!-- Clean Visible Solar Panels Header -->
     <div class="app-header">
         <div class="header-left">
             <div class="avatar-box">
@@ -377,16 +358,13 @@
             </div>
         </div>
         <div class="header-right">
-            <button class="close-btn" onclick="toggleChat()">×</button>
-        </div>
-
-        <!-- Premium Compact Green Strip -->
-        <div class="header-brand-strip">
-            <i class="fa-solid fa-bolt"></i> Powered by Solar Sathi AI
+            <!-- Sleek Right Brand Strip -->
+            <div class="header-brand-strip">
+                <i class="fa-solid fa-bolt"></i> Powered by Solar Sathi AI
+            </div>
         </div>
     </div>
 
-    <!-- Chat Messages -->
     <div class="chat-body" id="chatBody">
         <div class="msg-row bot">
             <div class="bubble-avatar"><img src="logo.png" alt="bot" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/8618/8618881.png';"></div>
@@ -400,18 +378,16 @@ Please select your language / अपनी भाषा चुनें:
         </div>
 
         <div class="chips-list active-chips">
-            <div class="chip-card highlight" onclick="sendMessage('2')">🇮🇳 Hinglish (हिंदी)</div>
-            <div class="chip-card blue-outline" onclick="sendMessage('1')">🌐 English</div>
+            <div class="chip-card highlight" onclick="sendMessage('2', '🇮🇳 Hinglish (हिंदी)')">🇮🇳 Hinglish (हिंदी)</div>
+            <div class="chip-card blue-outline" onclick="sendMessage('1', '🌐 English')">🌐 English</div>
         </div>
     </div>
 
-    <!-- Footer Input Bar -->
     <div class="footer-action-bar">
-        <button class="btn-round-plus"><i class="fa-solid fa-plus"></i></button>
         <div class="input-pill">
             <input type="text" id="userInput" placeholder="Apna jawab likhein..." onkeypress="handleKey(event)">
         </div>
-        <button class="btn-send-green" id="sendBtn" onclick="sendMessage()">
+        <button class="btn-send-theme" id="sendBtn" onclick="sendMessage()">
             <i class="fa-solid fa-paper-plane"></i>
         </button>
     </div>
@@ -423,32 +399,49 @@ Please select your language / अपनी भाषा चुनें:
         ? "http://127.0.0.1:8000/chat"
         : "https://solar-sathi-ai.onrender.com/chat";
 
-    function toggleChat() {
-        const c = document.getElementById("appContainer");
-        c.classList.toggle("hidden");
-        if (!c.classList.contains("hidden")) {
-            document.getElementById("userInput").focus();
-        }
-    }
-
     function getTimeString() {
         return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function scrollToBottom() {
+        const chat = document.getElementById("chatBody");
+        setTimeout(() => {
+            chat.scrollTop = chat.scrollHeight;
+        }, 120);
+    }
+
+    const userInput = document.getElementById("userInput");
+    userInput.addEventListener("focus", () => {
+        scrollToBottom();
+    });
+
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener("resize", () => {
+            scrollToBottom();
+        });
     }
 
     function isEnglishSelected() {
         const first = conversationHistory.find(m => m.sender === "user");
         if (!first) return false;
         const txt = first.text.toLowerCase().trim();
-        return txt === "1" || txt === "english" || txt === "en";
+        return txt === "1" || txt === "english" || txt === "en" || txt.includes("english");
     }
 
-    async function sendMessage(presetText = null) {
+    let isSending = false;
+
+    async function sendMessage(presetText = null, displayLabel = null) {
+        if (isSending) return;
         const input = document.getElementById("userInput");
         const sendBtn = document.getElementById("sendBtn");
-        const message = presetText ? presetText.trim() : input.value.trim();
-        if (!message) return;
+        
+        const backendPayload = presetText ? presetText.trim() : input.value.trim();
+        const bubbleDisplay = displayLabel ? displayLabel.trim() : backendPayload;
 
-        appendUserMessage(message);
+        if (!backendPayload) return;
+
+        isSending = true;
+        appendUserMessage(bubbleDisplay);
         if (!presetText) input.value = "";
         sendBtn.disabled = true;
 
@@ -459,7 +452,7 @@ Please select your language / अपनी भाषा चुनें:
             const res = await fetch(BACKEND_URL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: message, history: conversationHistory })
+                body: JSON.stringify({ message: backendPayload, history: conversationHistory })
             });
 
             const data = await res.json();
@@ -468,15 +461,16 @@ Please select your language / अपनी भाषा चुनें:
             const botReply = data.reply || "Maaf kijiye, koi technical samasya aayi.";
             appendBotMessage(botReply);
 
-            conversationHistory.push({ sender: "user", text: message });
+            conversationHistory.push({ sender: "user", text: backendPayload });
             conversationHistory.push({ sender: "bot", text: botReply });
 
             renderContextualChips(botReply);
         } catch (e) {
             removeElement(typingId);
-            appendBotMessage("Network Error: Local backend server offline hai. Make sure uvicorn is running on port 8000.");
+            appendBotMessage("Network Error: Local backend server offline hai.");
         } finally {
             sendBtn.disabled = false;
+            isSending = false;
         }
     }
 
@@ -486,12 +480,20 @@ Please select your language / अपनी भाषा चुनें:
         div.className = "msg-row user";
         div.innerHTML = `
             <div class="bubble">
-                ${escapeHtml(text)}
-                <div class="bubble-time">${getTimeString()} <i class="fa-solid fa-check-double" style="font-size:9px; color:#e0f2fe;"></i></div>
+                ${escapeHtml(text.trim())}
+                <div class="bubble-time">${getTimeString()} <i class="fa-solid fa-check-double" style="font-size:9px; color:#93c5fd;"></i></div>
             </div>
         `;
         chat.appendChild(div);
-        chat.scrollTop = chat.scrollHeight;
+        scrollToBottom();
+    }
+
+    function cleanIndent(rawStr) {
+        return rawStr
+            .split('\n')
+            .map(line => line.trim())
+            .join('\n')
+            .trim();
     }
 
     function appendBotMessage(text) {
@@ -501,12 +503,12 @@ Please select your language / अपनी भाषा चुनें:
         div.innerHTML = `
             <div class="bubble-avatar"><img src="logo.png" alt="bot" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/8618/8618881.png';"></div>
             <div class="bubble">
-                ${escapeHtml(text)}
+                ${escapeHtml(cleanIndent(text))}
                 <div class="bubble-time">${getTimeString()}</div>
             </div>
         `;
         chat.appendChild(div);
-        chat.scrollTop = chat.scrollHeight;
+        scrollToBottom();
     }
 
     function renderContextualChips(reply) {
@@ -541,11 +543,11 @@ Please select your language / अपनी भाषा चुनें:
                 const btn = document.createElement("div");
                 btn.className = `chip-card ${c.style}`;
                 btn.innerText = c.label;
-                btn.onclick = () => sendMessage(c.val);
+                btn.onclick = () => sendMessage(c.val, c.label);
                 wrap.appendChild(btn);
             });
             chat.appendChild(wrap);
-            chat.scrollTop = chat.scrollHeight;
+            scrollToBottom();
         }
     }
 
@@ -566,7 +568,7 @@ Please select your language / अपनी भाषा चुनें:
             </div>
         `;
         chat.appendChild(div);
-        chat.scrollTop = chat.scrollHeight;
+        scrollToBottom();
         return id;
     }
 
