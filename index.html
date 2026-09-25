@@ -17,46 +17,25 @@
             width: 100% !important;
             height: 100% !important;
             overflow: hidden !important;
-            background: transparent !important;
-        }
-
-        /* Re-open Launcher (Default Hidden, ❌ ke baad dikhega) */
-        #chatLauncher {
+            background: #ffffff;
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #16a34a, #15803d);
-            color: #ffffff;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            z-index: 999999;
-            border: 2px solid #ffffff;
-        }
-
-        /* Main Chat Window (Default Open) */
-        .app-container {
-            position: fixed;
-            top: 0;
             left: 0;
-            width: 100vw !important;
-            max-width: 100% !important;
+            top: 0;
+        }
+
+        /* Main Container: Right side safe offset diya hai */
+        .app-container {
+            width: 100% !important;
             height: 100% !important;
             height: 100dvh;
             background: #ffffff;
             display: flex;
             flex-direction: column;
             overflow: hidden !important;
-            z-index: 99999;
+            padding-right: 35px !important; /* Forces all content inside visible screen */
         }
 
-        /* Header with ❌ Cross Button */
+        /* Header */
         .app-header {
             position: relative;
             background-color: #0b254a;
@@ -64,7 +43,7 @@
             background-size: cover;
             background-position: center bottom;
             color: white;
-            padding: 10px 12px 18px 12px;
+            padding: 10px 10px 18px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -133,32 +112,6 @@
             font-weight: 600;
         }
 
-        .header-right { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            flex-shrink: 0;
-        }
-
-        /* ❌ Close / Cross Button */
-        .btn-close-chat {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            color: #ffffff;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 14px;
-            outline: none;
-        }
-        .btn-close-chat:active {
-            background: rgba(239, 68, 68, 0.9);
-        }
-
         .chat-body {
             flex: 1;
             background: #f8fafc;
@@ -175,7 +128,7 @@
             display: flex;
             align-items: flex-start;
             gap: 8px;
-            max-width: 86%;
+            max-width: 90%;
             width: fit-content;
         }
         .msg-row.bot { align-self: flex-start; }
@@ -248,9 +201,9 @@
             color: #0e3860;
         }
 
-        /* 🔒 FOOTER LOCK: Isme right padding di hai taaki button cut na ho sake */
+        /* 🔒 FOOTER LOCK: Isme extra right margin lock hai */
         .footer-action-bar {
-            padding: 8px 24px 12px 10px !important; /* Right side 24px safe padding */
+            padding: 8px 10px 12px 8px !important;
             background: #ffffff;
             border-top: 1px solid #e2e8f0;
             display: flex !important;
@@ -259,6 +212,7 @@
             gap: 8px !important;
             flex-shrink: 0 !important;
             width: 100% !important;
+            box-sizing: border-box !important;
         }
 
         .input-pill {
@@ -267,9 +221,9 @@
             display: flex;
             align-items: center;
             background: #f1f5f9;
-            border: 1px solid #cbd5e1;
+            border: 1.5px solid #cbd5e1;
             border-radius: 20px;
-            padding: 0 12px;
+            padding: 0 10px;
             height: 38px;
         }
 
@@ -303,10 +257,6 @@
 </head>
 <body>
 
-<!-- Floating Launcher Icon (❌ ke baad dikhega) -->
-<div id="chatLauncher" onclick="toggleChat(true)"><i class="fa-solid fa-comments"></i></div>
-
-<!-- Main Chat Box -->
 <div class="app-container" id="appContainer">
     <div class="app-header">
         <div class="header-left">
@@ -318,12 +268,6 @@
                 <h2>Pragati Solar Hub</h2>
                 <div class="status-sub"><span style="color:#22c55e;">●</span> Online AI Consultant</div>
             </div>
-        </div>
-        <div class="header-right">
-            <!-- ❌ Cross Button -->
-            <button class="btn-close-chat" onclick="toggleChat(false)" title="Close Chat">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
         </div>
     </div>
 
@@ -360,20 +304,6 @@ Please select your language / अपनी भाषा चुनें:
     const BACKEND_URL = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost" || window.location.protocol === "file:")
         ? "http://127.0.0.1:8000/chat"
         : "https://solar-sathi-ai.onrender.com/chat";
-
-    /* Close / Open Chat Logic */
-    function toggleChat(isOpen) {
-        const container = document.getElementById("appContainer");
-        const launcher = document.getElementById("chatLauncher");
-        if (isOpen) {
-            container.style.display = "flex";
-            launcher.style.display = "none";
-            scrollToBottom();
-        } else {
-            container.style.display = "none";
-            launcher.style.display = "flex";
-        }
-    }
 
     function getTimeString() {
         return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
