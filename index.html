@@ -15,51 +15,31 @@
         
         html, body {
             width: 100% !important;
-            max-width: 100% !important;
-            height: 100%;
+            height: 100% !important;
             height: 100dvh;
             overflow: hidden !important;
-            background: #f0f2f5;
+            background: #ffffff;
             position: fixed;
             left: 0;
             top: 0;
         }
 
         .chat-launcher {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #0284c7, #166534);
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4);
-            cursor: pointer;
-            z-index: 1000;
+            display: none !important;
         }
 
+        /* Pure Fluid Container: Iframe chahe 300px ka ho ya 400px ka, 100% fit rahega */
         .app-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
             width: 100% !important;
-            max-width: 100% !important;
-            height: 100%;
+            height: 100% !important;
             height: 100dvh;
             background: #ffffff;
             display: flex;
             flex-direction: column;
             overflow: hidden !important;
-            z-index: 999;
         }
 
+        /* Header */
         .app-header {
             position: relative;
             background-color: #0b254a;
@@ -76,7 +56,7 @@
             border-bottom: 2px solid #22c55e;
             z-index: 10;
             overflow: hidden;
-            width: 100%;
+            width: 100% !important;
         }
 
         .header-left { 
@@ -197,7 +177,7 @@
             flex-direction: column;
             gap: 12px;
             scroll-behavior: smooth;
-            width: 100%;
+            width: 100% !important;
         }
 
         .msg-row {
@@ -302,12 +282,15 @@
             color: #0e3860;
         }
 
+        /* 100% Solid Footer: Input field aur Send Button locked */
         .footer-action-bar {
             padding: 8px 10px 10px 10px;
             background: #ffffff;
             border-top: 1px solid #f1f5f9;
             display: flex !important;
+            flex-direction: row !important;
             align-items: center !important;
+            justify-content: space-between !important;
             gap: 8px !important;
             flex-shrink: 0 !important;
             width: 100% !important;
@@ -317,6 +300,7 @@
 
         .input-pill {
             flex: 1 1 auto !important;
+            min-width: 0 !important; /* Never push button outside */
             display: flex;
             align-items: center;
             background: #ffffff;
@@ -324,12 +308,11 @@
             border-radius: 24px;
             padding: 0 12px;
             height: 40px;
-            min-width: 0 !important;
             box-sizing: border-box !important;
         }
 
         .input-pill input {
-            width: 100%;
+            width: 100% !important;
             min-width: 0 !important;
             border: none;
             outline: none;
@@ -342,17 +325,18 @@
             width: 38px !important;
             height: 38px !important;
             min-width: 38px !important;
+            max-width: 38px !important;
             border-radius: 50%;
             background: linear-gradient(135deg, #16a34a, #15803d);
             color: #ffffff;
-            display: flex;
+            display: flex !important;
             align-items: center;
             justify-content: center;
             border: none;
             font-size: 15px;
             cursor: pointer;
             box-shadow: 0 3px 8px rgba(22, 163, 74, 0.35);
-            flex: 0 0 38px !important;
+            flex: 0 0 38px !important; /* Button cut hone ka chance 0% */
         }
 
         .typing-dots { display: flex; gap: 4px; padding: 10px 14px; }
@@ -360,28 +344,9 @@
         .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
         .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
         @keyframes blink { 0%, 80%, 100% { transform: scale(0); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
-
-        @media (max-width: 768px) {
-            .chat-launcher { display: none !important; }
-        }
-
-        @media (min-width: 769px) {
-            .app-container {
-                top: auto;
-                left: auto;
-                bottom: 20px;
-                right: 20px;
-                width: 390px;
-                height: 600px;
-                border-radius: 20px;
-                box-shadow: 0 18px 50px rgba(0, 30, 70, 0.2);
-            }
-        }
     </style>
 </head>
 <body>
-
-<div class="chat-launcher"><i class="fa-solid fa-solar-panel"></i></div>
 
 <div class="app-container" id="appContainer">
     <div class="app-header">
