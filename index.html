@@ -6,14 +6,23 @@
     <title>Pragati Solar Hub - AI Solar Consultant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        * { 
+            box-sizing: border-box !important; 
+            margin: 0; 
+            padding: 0; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+        }
         
         html, body {
-            width: 100%;
+            width: 100% !important;
+            max-width: 100% !important;
             height: 100%;
             height: 100dvh;
-            overflow: hidden;
+            overflow: hidden !important;
             background: #f0f2f5;
+            position: fixed;
+            left: 0;
+            top: 0;
         }
 
         .chat-launcher {
@@ -34,23 +43,25 @@
             z-index: 1000;
         }
 
+        /* Responsive Iframe Container: 100vw hata kar 100% lock kiya */
         .app-container {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            width: 100vw;
+            width: 100% !important;
+            max-width: 100% !important;
             height: 100%;
             height: 100dvh;
             background: #ffffff;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow: hidden !important;
             z-index: 999;
         }
 
-        /* Responsive Solar Panel Image Header */
+        /* Header View */
         .app-header {
             position: relative;
             background-color: #0b254a;
@@ -59,26 +70,30 @@
             background-position: center bottom;
             background-repeat: no-repeat;
             color: white;
-            padding: 12px 14px 22px 14px;
+            padding: 10px 12px 20px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-shrink: 0;
             border-bottom: 2px solid #22c55e;
             z-index: 10;
+            overflow: hidden;
+            width: 100%;
         }
 
         .header-left { 
             display: flex; 
             align-items: center; 
-            gap: 10px; 
+            gap: 8px; 
             z-index: 2;
+            min-width: 0;
+            flex: 1;
         }
         
         .avatar-box {
             position: relative;
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: #ffffff;
             display: flex;
@@ -98,22 +113,30 @@
             position: absolute;
             bottom: 1px;
             right: 1px;
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: #22c55e;
             border: 2px solid white;
         }
 
+        .header-meta {
+            min-width: 0;
+            flex: 1;
+        }
+
         .header-meta h2 { 
-            font-size: 1.05rem; 
+            font-size: 0.95rem; 
             font-weight: 800; 
             line-height: 1.2; 
             color: #ffffff;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.75);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .header-meta .status-sub { 
-            font-size: 0.72rem; 
+            font-size: 0.68rem; 
             color: #bae6fd; 
             display: flex; 
             align-items: center; 
@@ -121,30 +144,36 @@
             margin-top: 2px;
             font-weight: 600;
             text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .header-meta .tagline { 
-            font-size: 0.65rem; 
+            font-size: 0.62rem; 
             color: #86efac; 
             font-weight: 600; 
             text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .header-right { 
             display: flex; 
             align-items: center; 
-            gap: 12px; 
+            gap: 8px; 
             z-index: 2;
+            flex-shrink: 0;
         }
 
-        /* Clean Bottom-Right Branding Strip */
         .header-brand-strip {
             position: absolute;
             bottom: 0;
             right: 0;
             background: linear-gradient(90deg, #15803d, #16a34a);
-            padding: 2px 10px;
+            padding: 2px 8px;
             border-top-left-radius: 8px;
-            font-size: 0.58rem;
+            font-size: 0.55rem;
             color: #ffffff;
             font-weight: 700;
             letter-spacing: 0.3px;
@@ -156,26 +185,28 @@
         }
         .header-brand-strip i {
             color: #facc15;
-            font-size: 0.60rem;
+            font-size: 0.58rem;
         }
 
         .chat-body {
             flex: 1;
             background: #f8fafc;
             overflow-y: auto;
+            overflow-x: hidden !important;
             -webkit-overflow-scrolling: touch;
-            padding: 14px 12px;
+            padding: 12px 10px;
             display: flex;
             flex-direction: column;
             gap: 12px;
             scroll-behavior: smooth;
+            width: 100%;
         }
 
         .msg-row {
             display: flex;
             align-items: flex-start;
             gap: 8px;
-            max-width: 82%;
+            max-width: 86%;
             width: fit-content;
         }
         .msg-row.bot { align-self: flex-start; }
@@ -185,8 +216,8 @@
         }
 
         .bubble-avatar {
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             border: 1.5px solid #22c55e;
             background: #ffffff;
@@ -204,8 +235,8 @@
         }
 
         .bubble {
-            padding: 9px 13px;
-            font-size: 0.88rem;
+            padding: 9px 12px;
+            font-size: 0.86rem;
             line-height: 1.45;
             white-space: pre-wrap;
             word-break: break-word;
@@ -243,22 +274,25 @@
 
         .chips-list {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-wrap: wrap;
             margin-top: 2px;
-            padding-left: 40px;
+            padding-left: 38px;
+            width: 100%;
         }
         .chip-card {
             background: #ffffff;
             border: 1.5px solid #e2e8f0;
-            padding: 8px 14px;
+            padding: 7px 12px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             cursor: pointer;
+            max-width: 100%;
+            word-break: break-word;
         }
         .chip-card.highlight {
             background: #f0fdf4;
@@ -270,39 +304,47 @@
             color: #0e3860;
         }
 
+        /* 100% Bulletproof Footer & Send Button Area */
         .footer-action-bar {
-            padding: 8px 10px 12px 10px;
+            padding: 8px 10px 10px 10px;
             background: #ffffff;
             border-top: 1px solid #f1f5f9;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-shrink: 0;
-            width: 100%;
+            display: flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            flex-shrink: 0 !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
         }
+
         .input-pill {
-            flex: 1;
+            flex: 1 1 auto !important;
             display: flex;
             align-items: center;
             background: #ffffff;
             border: 1.5px solid #cbd5e1;
             border-radius: 24px;
-            padding: 0 14px;
-            height: 42px;
-            min-width: 0;
+            padding: 0 12px;
+            height: 40px;
+            min-width: 0 !important; /* Forces the box to squeeze instead of overflowing */
+            box-sizing: border-box !important;
         }
+
         .input-pill input {
             width: 100%;
+            min-width: 0 !important;
             border: none;
             outline: none;
-            font-size: 0.92rem;
+            font-size: 16px !important; /* Prevents iOS Safari from auto-zooming and cutting screen */
             color: #1e293b;
             background: transparent;
         }
 
         .btn-send-theme {
-            width: 40px;
-            height: 40px;
+            width: 38px !important;
+            height: 38px !important;
+            min-width: 38px !important;
             border-radius: 50%;
             background: linear-gradient(135deg, #16a34a, #15803d);
             color: #ffffff;
@@ -310,10 +352,10 @@
             align-items: center;
             justify-content: center;
             border: none;
-            font-size: 16px;
+            font-size: 15px;
             cursor: pointer;
             box-shadow: 0 3px 8px rgba(22, 163, 74, 0.35);
-            flex-shrink: 0;
+            flex: 0 0 38px !important; /* NEVER shrinks, NEVER cuts */
         }
 
         .typing-dots { display: flex; gap: 4px; padding: 10px 14px; }
@@ -330,11 +372,11 @@
             .app-container {
                 top: auto;
                 left: auto;
-                bottom: 92px;
-                right: 24px;
-                width: 410px;
-                height: 650px;
-                border-radius: 24px;
+                bottom: 20px;
+                right: 20px;
+                width: 390px;
+                height: 600px;
+                border-radius: 20px;
                 box-shadow: 0 18px 50px rgba(0, 30, 70, 0.2);
             }
         }
@@ -358,7 +400,6 @@
             </div>
         </div>
         <div class="header-right">
-            <!-- Sleek Right Brand Strip -->
             <div class="header-brand-strip">
                 <i class="fa-solid fa-bolt"></i> Powered by Solar Sathi AI
             </div>
@@ -454,7 +495,7 @@ Please select your language / अपनी भाषा चुनें:
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
                     message: backendPayload, 
-                    history: conversationHistory,
+                    history: conversationHistory, 
                     client: "pragati" 
                 })
             });
