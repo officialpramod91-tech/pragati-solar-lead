@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, interactive-widget=resizes-content">
-    <title>Pragati Solar Hub - AI Solar Consultant</title>
+    <title>Pragati Solar Hub - Kanpur AI Consultant</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { 
@@ -49,7 +49,7 @@
         .app-header {
             position: relative;
             background-color: #0b254a;
-            background-image: linear-gradient(180deg, rgba(2, 30, 60, 0.35) 0%, rgba(2, 20, 45, 0.70) 100%), url('header-bg.jpg');
+            background-image: linear-gradient(180deg, rgba(2, 30, 60, 0.4) 0%, rgba(2, 20, 45, 0.75) 100%), url('header-bg.jpg');
             background-size: cover;
             background-position: center bottom;
             background-repeat: no-repeat;
@@ -76,8 +76,8 @@
         
         .avatar-box {
             position: relative;
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: #ffffff;
             display: flex;
@@ -97,8 +97,8 @@
             position: absolute;
             bottom: 1px;
             right: 1px;
-            width: 8px;
-            height: 8px;
+            width: 9px;
+            height: 9px;
             border-radius: 50%;
             background: #22c55e;
             border: 2px solid white;
@@ -110,7 +110,7 @@
         }
 
         .header-meta h2 { 
-            font-size: 0.92rem; 
+            font-size: 0.94rem; 
             font-weight: 800; 
             line-height: 1.2; 
             color: #ffffff;
@@ -155,9 +155,9 @@
             bottom: 0;
             right: 0;
             background: linear-gradient(90deg, #15803d, #16a34a);
-            padding: 2px 8px;
+            padding: 2px 9px;
             border-top-left-radius: 8px;
-            font-size: 0.55rem;
+            font-size: 0.56rem;
             color: #ffffff;
             font-weight: 700;
             letter-spacing: 0.3px;
@@ -190,7 +190,7 @@
             display: flex;
             align-items: flex-start;
             gap: 8px;
-            max-width: 86%;
+            max-width: 88%;
             width: fit-content;
         }
         .msg-row.bot { align-self: flex-start; }
@@ -219,7 +219,7 @@
         }
 
         .bubble {
-            padding: 9px 12px;
+            padding: 10px 13px;
             font-size: 0.85rem;
             line-height: 1.45;
             white-space: pre-wrap;
@@ -235,6 +235,7 @@
             color: #0f172a;
             border-top-left-radius: 4px;
             border: 1px solid #dcfce7;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
         .user .bubble {
@@ -258,7 +259,7 @@
 
         .chips-list {
             display: flex;
-            gap: 6px;
+            gap: 7px;
             flex-wrap: wrap;
             margin-top: 2px;
             padding-left: 36px;
@@ -266,31 +267,43 @@
         }
         .chip-card {
             background: #ffffff;
-            border: 1.5px solid #e2e8f0;
-            padding: 6px 12px;
-            border-radius: 18px;
-            font-size: 0.76rem;
-            font-weight: 600;
+            border: 1.5px solid #cbd5e1;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.80rem;
+            font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             cursor: pointer;
             max-width: 100%;
             word-break: break-word;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .chip-card:hover, .chip-card:active {
+            transform: scale(0.98);
         }
         .chip-card.highlight {
             background: #f0fdf4;
-            border-color: #86efac;
-            color: #166534;
+            border-color: #22c55e;
+            color: #15803d;
         }
         .chip-card.blue-outline {
-            border-color: #bae6fd;
-            color: #0e3860;
+            border-color: #38bdf8;
+            color: #0369a1;
+            background: #f0f9ff;
+        }
+        .chip-card.trust-badge {
+            background: #fffbeb;
+            border-color: #fde68a;
+            color: #b45309;
+            font-size: 0.74rem;
+            cursor: default;
         }
 
-        /* Safe padding right side se button ko screen ke andar shift karegi */
         .footer-action-bar {
-            padding: 8px 30px 10px 10px !important;
+            padding: 8px 24px 10px 10px !important;
             background: #ffffff;
             border-top: 1px solid #f1f5f9;
             display: flex !important;
@@ -309,12 +322,17 @@
             min-width: 0 !important;
             display: flex;
             align-items: center;
-            background: #ffffff;
+            background: #f8fafc;
             border: 1.5px solid #cbd5e1;
             border-radius: 24px;
-            padding: 0 12px;
-            height: 38px;
+            padding: 0 14px;
+            height: 40px;
             box-sizing: border-box !important;
+            transition: border-color 0.2s;
+        }
+        .input-pill:focus-within {
+            border-color: #22c55e;
+            background: #ffffff;
         }
 
         .input-pill input {
@@ -328,10 +346,10 @@
         }
 
         .btn-send-theme {
-            width: 36px !important;
-            height: 36px !important;
-            min-width: 36px !important;
-            max-width: 36px !important;
+            width: 38px !important;
+            height: 38px !important;
+            min-width: 38px !important;
+            max-width: 38px !important;
             border-radius: 50%;
             background: linear-gradient(135deg, #16a34a, #15803d);
             color: #ffffff;
@@ -342,7 +360,7 @@
             font-size: 14px;
             cursor: pointer;
             box-shadow: 0 3px 8px rgba(22, 163, 74, 0.35);
-            flex: 0 0 36px !important;
+            flex: 0 0 38px !important;
         }
 
         .typing-dots { display: flex; gap: 4px; padding: 10px 14px; }
@@ -363,38 +381,40 @@
             </div>
             <div class="header-meta">
                 <h2>Pragati Solar Hub</h2>
-                <div class="status-sub"><span style="color:#22c55e;">●</span> Online | AI Solar Consultant</div>
-                <div class="tagline">Clean Energy • Bright Future</div>
+                <div class="status-sub"><span style="color:#22c55e;">●</span> Online | Kanpur Solar Subsidy Desk</div>
+                <div class="tagline">PM Surya Ghar Yojana • KESCO Authorized</div>
             </div>
         </div>
         <div class="header-right">
             <div class="header-brand-strip">
-                <i class="fa-solid fa-bolt"></i> Powered by Solar Sathi AI
+                <i class="fa-solid fa-bolt"></i> Solar Sathi AI
             </div>
         </div>
     </div>
 
     <div class="chat-body" id="chatBody">
+        <!-- Welcoming Hook -->
         <div class="msg-row bot">
             <div class="bubble-avatar"><img src="logo.png" alt="bot" onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/8618/8618881.png';"></div>
-            <div class="bubble">☀️ Namaste & Welcome to Pragati Solar Hub! 🙏
+            <div class="bubble">☀️ <b>Namaste Kanpur! Pragati Solar Hub mein aapka swagat hai.</b> 🙏
 
-Please select your language / अपनी भाषा चुनें:
-1️⃣ English
-2️⃣ Hinglish (हिंदी)
+PM Surya Ghar Yojana ke tehat Kanpur mein apni chhat par <b>₹78,000 se ₹1,08,000 tak ki subsidy</b> check karein!
 
-(You can click below or directly type your monthly electricity bill)</div>
+Aapka monthly bijli bill lagbhag kitna aata hai? (Neeche tap karein ya likhein):</div>
         </div>
 
+        <!-- 1-Tap Bill Selector Chips -->
         <div class="chips-list active-chips">
-            <div class="chip-card highlight" onclick="sendMessage('2', '🇮🇳 Hinglish (हिंदी)')">🇮🇳 Hinglish (हिंदी)</div>
-            <div class="chip-card blue-outline" onclick="sendMessage('1', '🌐 English')">🌐 English</div>
+            <div class="chip-card highlight" onclick="sendMessage('2000', '⚡ ₹1,500 - ₹2,500')">⚡ ₹1,500 - ₹2,500</div>
+            <div class="chip-card highlight" onclick="sendMessage('3500', '⚡ ₹2,500 - ₹4,500')">⚡ ₹2,500 - ₹4,500</div>
+            <div class="chip-card blue-outline" onclick="sendMessage('5500', '⚡ ₹4,500 - ₹7,500')">⚡ ₹4,500 - ₹7,500</div>
+            <div class="chip-card blue-outline" onclick="sendMessage('8500', '⚡ ₹7,500 se zyada')">⚡ ₹7,500+</div>
         </div>
     </div>
 
     <div class="footer-action-bar">
         <div class="input-pill">
-            <input type="text" id="userInput" placeholder="Apna jawab likhein..." onkeypress="handleKey(event)">
+            <input type="text" id="userInput" placeholder="Apna jawab yahan likhein..." onkeypress="handleKey(event)">
         </div>
         <button class="btn-send-theme" id="sendBtn" onclick="sendMessage()">
             <i class="fa-solid fa-paper-plane"></i>
@@ -428,13 +448,6 @@ Please select your language / अपनी भाषा चुनें:
         window.visualViewport.addEventListener("resize", () => {
             scrollToBottom();
         });
-    }
-
-    function isEnglishSelected() {
-        const first = conversationHistory.find(m => m.sender === "user");
-        if (!first) return false;
-        const txt = first.text.toLowerCase().trim();
-        return txt === "1" || txt === "english" || txt === "en" || txt.includes("english");
     }
 
     let isSending = false;
@@ -480,7 +493,7 @@ Please select your language / अपनी भाषा चुनें:
             renderContextualChips(botReply);
         } catch (e) {
             removeElement(typingId);
-            appendBotMessage("Network Error: Local backend server offline hai.");
+            appendBotMessage("Network issue. Kripya apna internet connection check karein.");
         } finally {
             sendBtn.disabled = false;
             isSending = false;
@@ -526,26 +539,51 @@ Please select your language / अपनी भाषा चुनें:
 
     function renderContextualChips(reply) {
         const lower = reply.toLowerCase();
-        const eng = isEnglishSelected();
         let chips = [];
+        const input = document.getElementById("userInput");
 
-        if ((lower.includes("ghar ke liye") && lower.includes("dukan")) || (lower.includes("residential") && lower.includes("commercial"))) {
+        // Step 2: Property Type (1-Tap)
+        if (lower.includes("ghar ke liye") && lower.includes("dukan")) {
             chips = [
-                { label: "🏠 Ghar ke liye", val: eng ? "Home" : "ghar ke liye", style: "highlight" },
-                { label: "🏢 Dukan / Commercial", val: eng ? "Commercial" : "dukan ke liye", style: "blue-outline" }
+                { label: "🏠 Ghar ke liye (Residential)", val: "ghar ke liye", style: "highlight" },
+                { label: "🏢 Dukan / Factory (Commercial)", val: "dukan ke liye", style: "blue-outline" }
             ];
-        } else if (lower.includes("on-grid") && lower.includes("hybrid")) {
+            input.placeholder = "Ghar ya Dukan chunein...";
+        } 
+        // Step 3: System Type (1-Tap)
+        else if (lower.includes("on-grid") && lower.includes("hybrid")) {
             chips = [
-                { label: "☀️ On-Grid (Bill Cut)", val: "On-Grid", style: "highlight" },
-                { label: "🔋 Hybrid (Battery Backup)", val: "Hybrid", style: "blue-outline" },
-                { label: "❓ System Difference?", val: eng ? "What is the difference between On-Grid and Hybrid?" : "On-grid aur Hybrid mein kya antar hai?", style: "blue-outline" }
+                { label: "☀️ On-Grid (Bill Zero Karna)", val: "On-Grid", style: "highlight" },
+                { label: "🔋 Hybrid (Battery Backup)", val: "Hybrid", style: "blue-outline" }
             ];
-        } else if (lower.includes("dhanyawad") || lower.includes("thank you")) {
+            input.placeholder = "System type select karein...";
+        } 
+        // Step 4: Name (Manual Typing)
+        else if (lower.includes("poora naam") || lower.includes("full name")) {
+            input.placeholder = "Apna naam likhein (e.g. Ramesh Kumar)...";
+            input.focus();
+        }
+        // Step 5: Mobile Number (Manual Typing with Trust Badge)
+        else if (lower.includes("mobile") || lower.includes("whatsapp")) {
             chips = [
-                { label: "⚡ Ek din me kitne units?", val: eng ? "How many units will this system generate per day?" : "Ek din mein kitne units banenge?", style: "highlight" },
-                { label: "📄 Documents List", val: eng ? "What documents are required for subsidy?" : "Documents kaun kaun se lagenge?", style: "blue-outline" },
-                { label: "💳 EMI / Loan Options", val: eng ? "What are the loan and EMI options available?" : "EMI options kya hain?", style: "blue-outline" }
+                { label: "🔒 100% Privacy Protected • Official Proposal", val: "", style: "trust-badge" }
             ];
+            input.placeholder = "10-digit WhatsApp number likhein...";
+            input.focus();
+        }
+        // Step 6: City & Pincode (MANUAL TYPING JAISE PEHLE THA)
+        else if (lower.includes("city") || lower.includes("area") || lower.includes("pin code")) {
+            input.placeholder = "Apni City aur PIN Code likhein (e.g. Kanpur 208001)...";
+            input.focus();
+        } 
+        // Post Completion FAQ
+        else if (lower.includes("dhanyawad") || lower.includes("thank you")) {
+            chips = [
+                { label: "⚡ Roz kitni bijli banegi?", val: "Ek din mein kitne units banenge?", style: "highlight" },
+                { label: "📄 Kaunse Kagaz (Documents) lagenge?", val: "Documents kaun kaun se lagenge?", style: "blue-outline" },
+                { label: "💳 Zero Down EMI / Loan Scheme?", val: "EMI options kya hain?", style: "blue-outline" }
+            ];
+            input.placeholder = "Koi aur sawal poochhein...";
         }
 
         if (chips.length > 0) {
@@ -556,7 +594,9 @@ Please select your language / अपनी भाषा चुनें:
                 const btn = document.createElement("div");
                 btn.className = `chip-card ${c.style}`;
                 btn.innerText = c.label;
-                btn.onclick = () => sendMessage(c.val, c.label);
+                if (c.val) {
+                    btn.onclick = () => sendMessage(c.val, c.label);
+                }
                 wrap.appendChild(btn);
             });
             chat.appendChild(wrap);
